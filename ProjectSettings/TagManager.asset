@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - Terrain
   - Player
   - 
   - 
@@ -40,10 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 3599458555
-    locked: 0
-  - name: Floor
-    uniqueID: 158582787
     locked: 0
