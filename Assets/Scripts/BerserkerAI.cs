@@ -67,7 +67,7 @@ public class BerserkerAI : MonoBehaviour
         if (floorIsGone.collider == null)
         {
             Flip();
-            Debug.Log("flip");
+            //Debug.Log("flip");
         }
 
         if (wallInWay.collider != null)
@@ -84,7 +84,7 @@ public class BerserkerAI : MonoBehaviour
             if(playerInfront.collider.tag == "Player")
             {
                 playerSpotted = true;
-                Debug.Log(playerSpotted);
+            	Debug.Log(playerSpotted);
             }
         }
     }
