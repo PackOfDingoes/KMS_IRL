@@ -7,11 +7,17 @@ public class SpellCasting : MonoBehaviour
 {
     public Queue<int> spellPrep = new Queue<int>(3);
     private int spellComboMax = 3;
-    // private int[] spellToCast = new int [3];
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
+	private Rigidbody2D rb2D;
 
 	// Use this for initialization
+
+	private void Awake()
+	{
+		rb2D = GetComponent<Rigidbody2D>();
+	}
+
 	void Start ()
     {
 	    
@@ -20,6 +26,7 @@ public class SpellCasting : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+		Debug.DrawLine(this.transform.position, Input.mousePosition/2, Color.red);
 	    if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             spellPrep.Enqueue(1);
@@ -41,11 +48,8 @@ public class SpellCasting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-           CastSpell();
-           /*foreach (int spellCode in spellPrep)
-            {
-                Debug.Log(spellCode);
-            }*/
+        	CastSpell();
+			spellPrep.Clear();
         }
     }
 
@@ -54,13 +58,19 @@ public class SpellCasting : MonoBehaviour
         spellPrep.CopyTo(preSpellToCast, 0);
         Array.Sort(preSpellToCast);
 
-        spellToCast = null;
+		spellToCast = null;
 
-        foreach (int spellcast in preSpellToCast)
-        {
-            spellToCast += spellcast.ToString();
-        }
-        Debug.Log(spellToCast);
+		if (spellPrep.Count > 0)
+		{
+	        foreach (int spellcast in preSpellToCast)
+	        {
+	            spellToCast += spellcast.ToString();
+	        }
+		}
+		else if(spellPrep.Count == 0)
+		{
+			spellToCast = null;
+		}
 
         if(spellToCast == "111")
         {
@@ -93,6 +103,7 @@ public class SpellCasting : MonoBehaviour
         if (spellToCast == "223")
         {
             Debug.Log("You cast spell 8");
+			WindDash();
         }
         if (spellToCast == "233")
         {
@@ -102,7 +113,15 @@ public class SpellCasting : MonoBehaviour
         {
             Debug.Log("You cast spell 10");
         }
-
-
+		if (spellToCast == null)
+		{
+			Debug.Log("no spell");
+		}
     }
+
+	void WindDash()
+	{
+		Vector2 direction = (Input.mousePosition - this.transform.position).normalized;
+		rb2D.AddForce(direction * 300);
+	}
 }
