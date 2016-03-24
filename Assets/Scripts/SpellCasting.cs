@@ -10,8 +10,9 @@ public class SpellCasting : MonoBehaviour
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
 	private Rigidbody2D rb2D;
-
-	// Use this for initialization
+	private Ray mousePos;
+	public float dashTime = 0.5f;
+	public bool isWindDashing = false;
 
 	private void Awake()
 	{
@@ -23,10 +24,9 @@ public class SpellCasting : MonoBehaviour
 	    
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
-		Debug.DrawLine(this.transform.position, Input.mousePosition/2, Color.red);
+		mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 	    if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             spellPrep.Enqueue(1);
@@ -46,7 +46,7 @@ public class SpellCasting : MonoBehaviour
             spellPrep.Dequeue();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetMouseButtonDown(0))
         {
         	CastSpell();
 			spellPrep.Clear();
@@ -60,68 +60,70 @@ public class SpellCasting : MonoBehaviour
 
 		spellToCast = null;
 
-		if (spellPrep.Count > 0)
+		if (spellPrep.Count >= preSpellToCast.Length)
 		{
 	        foreach (int spellcast in preSpellToCast)
 	        {
 	            spellToCast += spellcast.ToString();
 	        }
 		}
-		else if(spellPrep.Count == 0)
+		else if(spellPrep.Count < preSpellToCast.Length)
 		{
-			spellToCast = null;
+
+			spellToCast = "000";
+			for (int i = 0; i<preSpellToCast.Length; i++)
+			{
+				preSpellToCast[i] = 0;
+			}
 		}
 
-        if(spellToCast == "111")
-        {
-            Debug.Log("You cast spell 1");
-        }
-        if (spellToCast == "112")
-        {
-            Debug.Log("You cast spell 2");
-        }
-        if (spellToCast == "113")
-        {
-            Debug.Log("You cast spell 3");
-        }
-        if (spellToCast == "122")
-        {
-            Debug.Log("You cast spell 4");
-        }
-        if (spellToCast == "123")
-        {
-            Debug.Log("You cast spell 5");
-        }
-        if (spellToCast == "133")
-        {
-            Debug.Log("You cast spell 6");
-        }
-        if (spellToCast == "222")
-        {
-            Debug.Log("You cast spell 7");
-        }
-        if (spellToCast == "223")
-        {
-            Debug.Log("You cast spell 8");
-			WindDash();
-        }
-        if (spellToCast == "233")
-        {
-            Debug.Log("You cast spell 9");
-        }
-        if (spellToCast == "333")
-        {
-            Debug.Log("You cast spell 10");
-        }
-		if (spellToCast == null)
+		switch (spellToCast)
 		{
-			Debug.Log("no spell");
+			case "111":
+				Debug.Log("You cast spell 1");
+				break;
+			case "112":
+				Debug.Log("You cast spell 2");
+				break;
+			case "113":
+				Debug.Log("You cast spell 3");
+				break;
+			case "122":
+				Debug.Log("You cast spell 4");
+				break;
+			case "123":
+				Debug.Log("You cast spell 5");
+				break;
+			case "133":
+				Debug.Log("You cast spell 8");
+				break;
+			case "222":
+				Debug.Log("You cast spell 7");
+				break;
+			case "223":
+				Debug.Log("You cast Wind Dash");
+				StartCoroutine(WindDash(dashTime));
+				break;
+			case "233":
+				Debug.Log("You cast spell 0");
+				break;
+			case "333":
+				Debug.Log("You cast spell 10");
+				break;
+			case "000":
+				Debug.Log("ain't not spell nigga");
+				break;
+			default:
+				Debug.Log("this isn't possible");
+				break;
 		}
     }
 
-	void WindDash()
+	IEnumerator WindDash(float dashingTime)
 	{
-		Vector2 direction = (Input.mousePosition - this.transform.position).normalized;
-		rb2D.AddForce(direction * 300);
+		isWindDashing = true;
+		rb2D.AddForce(mousePos.direction * 1500);
+		yield return new WaitForSeconds(dashingTime);
+		isWindDashing = false;
 	}
 }

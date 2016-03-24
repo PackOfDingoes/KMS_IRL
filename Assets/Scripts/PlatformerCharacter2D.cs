@@ -8,7 +8,7 @@ namespace UnityStandardAssets._2D
     public class PlatformerCharacter2D : MonoBehaviour
     {
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
+		[SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
@@ -18,6 +18,7 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+		private SpellCasting windDashing;
 
         private void Awake()
         {
@@ -25,16 +26,17 @@ namespace UnityStandardAssets._2D
             m_GroundCheck = transform.Find("GroundCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        }
+			windDashing = GetComponent<SpellCasting>();
+
+		}
 
 
         private void FixedUpdate()
         {
             m_Grounded = false;
-
-            // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-            // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+			// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+			// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
@@ -48,11 +50,12 @@ namespace UnityStandardAssets._2D
 
 		private void Update()
 		{
+			
 		}
 
         public void Move(float move, bool jump)
         {
-            if (m_Grounded || m_AirControl)
+            if (m_Grounded && windDashing.isWindDashing == false || m_AirControl && windDashing.isWindDashing == false)
             {
               
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
