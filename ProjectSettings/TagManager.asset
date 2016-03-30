@@ -7,6 +7,7 @@ TagManager:
   - Trigger
   - Terrain
   - Heavy Object
+  - Instagib
   layers:
   - Default
   - TransparentFX

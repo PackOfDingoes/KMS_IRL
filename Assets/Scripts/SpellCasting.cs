@@ -107,7 +107,7 @@ public class SpellCasting : MonoBehaviour
 				Debug.Log("You cast spell 8");
 				break;
 			case "222":
-				Debug.Log("You cast Rock");
+				Debug.Log("You lobbed a rock");
 				Rock();
 				break;
 			case "223":
