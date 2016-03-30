@@ -4,13 +4,15 @@ using System.Collections;
 public class Trigger : MonoBehaviour {
 
 	public bool isSwitch;
-	static public bool isActivated = false;
+	public bool isActivated = false;
 	private bool canActivate = false;
+	public GameObject door;
+	private Door doorScript;
 
 	// Use this for initialization
 	void Start () 
 	{
-		
+		doorScript = door.GetComponent<Door>();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +22,7 @@ public class Trigger : MonoBehaviour {
 		{
 			isActivated = !isActivated;
 			Debug.Log("isActivated = " + isActivated);
+			doorScript.OpenSeseme(isActivated);
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other)
@@ -27,8 +30,8 @@ public class Trigger : MonoBehaviour {
 		if(other.gameObject.tag == "Player" && isSwitch == false)
 		{
 			isActivated = !isActivated;
-
 			Debug.Log("isActivated = " + isActivated);
+			doorScript.OpenSeseme(isActivated);
 		}
 	}
 

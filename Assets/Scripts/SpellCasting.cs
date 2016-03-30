@@ -9,14 +9,23 @@ public class SpellCasting : MonoBehaviour
     private int spellComboMax = 3;
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
+
 	private Rigidbody2D rb2D;
 	private Ray mousePos;
+	public Transform frontSpawn;
+	public Transform backSpawn;
+	private PlatformerCharacter2D playerCont;
+
 	public float dashTime = 0.5f;
+	public float windDashStrength = 1500f;
 	public bool isWindDashing = false;
+
+	public GameObject rock;
 
 	private void Awake()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
+		playerCont = GetComponent<PlatformerCharacter2D>();
 	}
 
 	void Start ()
@@ -98,7 +107,8 @@ public class SpellCasting : MonoBehaviour
 				Debug.Log("You cast spell 8");
 				break;
 			case "222":
-				Debug.Log("You cast spell 7");
+				Debug.Log("You cast Rock");
+				Rock();
 				break;
 			case "223":
 				Debug.Log("You cast Wind Dash");
@@ -122,8 +132,20 @@ public class SpellCasting : MonoBehaviour
 	IEnumerator WindDash(float dashingTime)
 	{
 		isWindDashing = true;
-		rb2D.AddForce(mousePos.direction * 1500);
+		rb2D.AddForce(mousePos.direction * windDashStrength);
 		yield return new WaitForSeconds(dashingTime);
 		isWindDashing = false;
+	}
+
+	void Rock()
+	{
+		if (mousePos.direction.x >=0 && playerCont.m_FacingRight == true || mousePos.direction.x < 0 && playerCont.m_FacingRight == false)
+		{
+			Instantiate(rock, frontSpawn.position, this.transform.rotation);
+		}
+		if (mousePos.direction.x < 0 && playerCont.m_FacingRight == true || mousePos.direction.x >=0 && playerCont.m_FacingRight == false)
+		{
+			Instantiate(rock, backSpawn.position, this.transform.rotation);
+		}
 	}
 }

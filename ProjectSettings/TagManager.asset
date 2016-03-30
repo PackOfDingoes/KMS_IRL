@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Trigger
   - Terrain
+  - Heavy Object
   layers:
   - Default
   - TransparentFX
