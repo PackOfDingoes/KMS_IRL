@@ -4,16 +4,20 @@ using System.Collections;
 public class Trigger : MonoBehaviour {
 
 	public bool isSwitch;
-	public bool isActivated = false;
 	private bool canActivate = false;
-	public GameObject door;
-	private Door doorScript;
+	public GameObject[] door;
+    private Door doorScript;
 
 	// Use this for initialization
 	void Start () 
 	{
-		doorScript = door.GetComponent<Door>();
-        doorScript.OpenSeseme(isActivated);
+
+
+        for (int i = 0; i < door.Length; i++)
+        {
+            doorScript = door[i].GetComponent<Door>();
+            doorScript.OpenSeseme();
+        }
     }
 	
 	// Update is called once per frame
@@ -21,19 +25,25 @@ public class Trigger : MonoBehaviour {
 	{
 		if (Input.GetKeyDown(KeyCode.E) && canActivate == true)
 		{
-			isActivated = !isActivated;
-			Debug.Log("isActivated = " + isActivated);
-			doorScript.OpenSeseme(isActivated);
-		}
+            for (int i = 0; i < door.Length; i++)
+            {
+                doorScript = door[i].GetComponent<Door>();
+                doorScript.isActivated = !doorScript.isActivated;
+                doorScript.OpenSeseme();
+            }
+        }
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if(other.gameObject.tag == "Player" && isSwitch == false)
 		{
-			isActivated = !isActivated;
-			Debug.Log("isActivated = " + isActivated);
-			doorScript.OpenSeseme(isActivated);
-		}
+            for (int i = 0; i < door.Length; i++)
+            {
+                doorScript = door[i].GetComponent<Door>();
+                doorScript.isActivated = !doorScript.isActivated;
+                doorScript.OpenSeseme();
+            }
+        }
 	}
 
 	void OnTriggerStay2D(Collider2D other)

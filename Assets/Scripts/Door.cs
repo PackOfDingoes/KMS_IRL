@@ -5,9 +5,10 @@ public class Door : MonoBehaviour
 {
 	private Collider2D doorCollider;
 	private Renderer doorVisuals;
-	//private bool isActivated = false;
-	// Use this for initialization
-	void Awake () 
+    public bool isActivated = false;
+    //private bool isActivated = false;
+    // Use this for initialization
+    void Awake () 
 	{
 		doorCollider = this.GetComponent<Collider2D>();
 		doorVisuals = this.GetComponent<Renderer>();
@@ -18,9 +19,9 @@ public class Door : MonoBehaviour
 	{
 	}
 
-	public void OpenSeseme(bool isOpen)
+	public void OpenSeseme()
 	{
-		if (isOpen == true)
+		if (isActivated == true)
 		{
 			doorCollider.enabled = false;
 			doorVisuals.enabled = false;
@@ -28,7 +29,7 @@ public class Door : MonoBehaviour
 			Debug.Log("opened");
 		}
 
-		if(isOpen == false)
+		if(isActivated == false)
 		{
 			doorCollider.enabled = true;
 			doorVisuals.enabled = true;
