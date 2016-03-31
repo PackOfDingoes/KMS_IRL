@@ -7,11 +7,11 @@ public class Door : MonoBehaviour
 	private Renderer doorVisuals;
 	//private bool isActivated = false;
 	// Use this for initialization
-	void Start () 
+	void Awake () 
 	{
 		doorCollider = this.GetComponent<Collider2D>();
 		doorVisuals = this.GetComponent<Renderer>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () 

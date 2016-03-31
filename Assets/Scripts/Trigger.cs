@@ -13,7 +13,8 @@ public class Trigger : MonoBehaviour {
 	void Start () 
 	{
 		doorScript = door.GetComponent<Door>();
-	}
+        doorScript.OpenSeseme(isActivated);
+    }
 	
 	// Update is called once per frame
 	void Update () 
