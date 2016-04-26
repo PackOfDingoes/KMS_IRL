@@ -25,16 +25,12 @@ public class Door : MonoBehaviour
 		{
 			doorCollider.enabled = false;
 			doorVisuals.enabled = false;
-
-			Debug.Log("opened");
 		}
 
 		if(isActivated == false)
 		{
 			doorCollider.enabled = true;
 			doorVisuals.enabled = true;
-
-			Debug.Log("closed");
 		}
 	}
 }

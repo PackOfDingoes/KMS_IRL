@@ -21,12 +21,10 @@ public class Ladder : MonoBehaviour
     {
         playerCont.onLadder = true;
         playerCont.m_Rigidbody2D.velocity = new Vector2(0f, 0f);
-        Debug.Log(playerCont.onLadder);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         playerCont.onLadder = false;
-        Debug.Log(playerCont.onLadder);
     }
 }

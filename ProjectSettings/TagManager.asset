@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Heavy Object
   - Instagib
+  - DestroyableTerrain
   layers:
   - Default
   - TransparentFX

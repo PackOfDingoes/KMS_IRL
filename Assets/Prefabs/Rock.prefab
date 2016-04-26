@@ -107,7 +107,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708498b3488e0d447a88add9684758f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrownFromPlayer: 1
+  throwForce: 3000
+  destroyAfter: 2
+  destroyOnStill: 0
+  stillDestroyAfter: 2
+  destroyOnBounches: 1
   bounceMax: 3
+  destroyOnTaggedTouch: 0
+  destroyTags:
+  - DestroyableTerrain
+  destroySelf: 0
+  destroyOther: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
