@@ -9,6 +9,9 @@ public class SpellCasting : MonoBehaviour
     private int spellComboMax = 3;
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
+	private int energyMax = 100;
+	public float energyCurrent = 100;
+	public float energyRecovery = 10f;
 
 	private Rigidbody2D rb2D;
 	private Ray mousePos;
@@ -18,9 +21,11 @@ public class SpellCasting : MonoBehaviour
 
 	public float dashTime = 0.5f;
 	public float windDashStrength = 1500f;
-	public bool isWindDashing = false;
+	[HideInInspector]public bool isWindDashing = false;
+	public int windDashCost = 50;
 
 	public GameObject rock;
+	public int rockCost = 33;
 
 	private void Awake()
 	{
@@ -36,31 +41,37 @@ public class SpellCasting : MonoBehaviour
 	void Update ()
     {
 		mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
-	    if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            spellPrep.Enqueue(1);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            spellPrep.Enqueue(2);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            spellPrep.Enqueue(3);
-        }
-        for (int i = spellPrep.Count; i > spellComboMax ; i--)
-        {
-            spellPrep.Dequeue();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-        	CastSpell();
-			spellPrep.Clear();
-        }
+		EnergyRecovery();
+		SpellPrep();
     }
+
+	void SpellPrep()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			spellPrep.Enqueue(1);
+		}
+
+		else if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			spellPrep.Enqueue(2);
+		}
+
+		else if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			spellPrep.Enqueue(3);
+		}
+		for (int i = spellPrep.Count; i > spellComboMax ; i--)
+		{
+			spellPrep.Dequeue();
+		}
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			CastSpell();
+			spellPrep.Clear();
+		}
+	}
 
     void CastSpell()
     {
@@ -129,23 +140,53 @@ public class SpellCasting : MonoBehaviour
 		}
     }
 
+	void EnergyRecovery()
+	{
+		if (energyCurrent < energyMax)
+		{
+			energyCurrent += Time.deltaTime * energyRecovery;
+		}
+		if (energyCurrent > energyMax)
+		{
+			energyCurrent = 100f;
+		}
+
+	}
+
 	IEnumerator WindDash(float dashingTime)
 	{
-		isWindDashing = true;
-		rb2D.AddForce(mousePos.direction * windDashStrength);
-		yield return new WaitForSeconds(dashingTime);
-		isWindDashing = false;
+		if (windDashCost > energyCurrent)
+		{
+			Debug.Log("out of energy nigga");
+		}
+		if (windDashCost < energyCurrent)
+		{
+			energyCurrent -= windDashCost;
+			isWindDashing = true;
+			rb2D.AddForce(mousePos.direction * windDashStrength);
+			yield return new WaitForSeconds(dashingTime);
+			isWindDashing = false;
+		}
 	}
 
 	void Rock()
 	{
-		if (mousePos.direction.x >=0 && playerCont.m_FacingRight == true || mousePos.direction.x < 0 && playerCont.m_FacingRight == false)
+		if (rockCost > energyCurrent)
 		{
-			Instantiate(rock, frontSpawn.position, this.transform.rotation);
+			Debug.Log("out of energy nigga");
 		}
-		if (mousePos.direction.x < 0 && playerCont.m_FacingRight == true || mousePos.direction.x >=0 && playerCont.m_FacingRight == false)
+		if (rockCost < energyCurrent)
 		{
-			Instantiate(rock, backSpawn.position, this.transform.rotation);
+			energyCurrent -= rockCost;
+
+			if (mousePos.direction.x >=0 && playerCont.m_FacingRight == true || mousePos.direction.x < 0 && playerCont.m_FacingRight == false)
+			{
+				Instantiate(rock, frontSpawn.position, this.transform.rotation);
+			}
+			if (mousePos.direction.x < 0 && playerCont.m_FacingRight == true || mousePos.direction.x >=0 && playerCont.m_FacingRight == false)
+			{
+				Instantiate(rock, backSpawn.position, this.transform.rotation);
+			}
 		}
 	}
 }

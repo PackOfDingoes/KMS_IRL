@@ -15,12 +15,11 @@ public class PlatformerCharacter2D : MonoBehaviour
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     private bool m_Grounded;            // Whether or not the player is grounded.
     private Animator m_Anim;            // Reference to the player's animator component.
-    public Rigidbody2D m_Rigidbody2D;
+	[HideInInspector]public Rigidbody2D m_Rigidbody2D;
 	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private SpellCasting windDashing;
-    public bool onLadder = false;
+	[HideInInspector] public bool onLadder = false;
     public float playerClimbSpeed = 20;
-    private float climbVelocity = 20;
 
     private void Awake()
     {
@@ -61,7 +60,14 @@ public class PlatformerCharacter2D : MonoBehaviour
         {
           
             // The Speed animator parameter is set to the absolute value of the horizontal input.
-            m_Anim.SetFloat("Speed", Mathf.Abs(move));
+			if (onLadder == false)
+			{
+            	m_Anim.SetFloat("Speed", Mathf.Abs(move));
+			}
+			if(onLadder == true)
+			{
+				m_Anim.SetFloat("Speed",0f);
+			}
 
             // Move the character
             if (onLadder == false)

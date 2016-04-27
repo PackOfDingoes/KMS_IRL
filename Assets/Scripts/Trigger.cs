@@ -35,7 +35,7 @@ public class Trigger : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.gameObject.tag == "Player" && isSwitch == false || other.gameObject.tag == "Heavy" && isSwitch == false)
+		if(other.gameObject.tag == "Player" && isSwitch == false || other.gameObject.tag == "Heavy Object" && isSwitch == false)
 		{
             for (int i = 0; i < door.Length; i++)
             {
