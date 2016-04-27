@@ -8,7 +8,7 @@ public class Ladder : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-		FindPlayerCont();
+		FindPlayer();
 	}
 	
 	// Update is called once per frame
@@ -17,7 +17,7 @@ public class Ladder : MonoBehaviour
 
 	}
 
-	public void FindPlayerCont()
+	public void FindPlayer()
 	{
 		playerCont = GameObject.FindGameObjectWithTag("Player").GetComponent<PlatformerCharacter2D>();
 	}

@@ -4,17 +4,17 @@ using System.Collections;
 public class GameController : MonoBehaviour 
 {
 
-	public bool cameraFollowPlayer = false;
+	[HideInInspector]public bool cameraFollowPlayer = false;
 
-	public SpellCasting spellCasting;
-
-	public GameObject energyBar;
+	[HideInInspector]public SpellCasting spellCasting;
+	[HideInInspector]public GameObject energyBar;
 	private RectTransform energyBarSize;
 	private Vector2 energyBarMax;
 
 	void Awake ()
 	{
-		spellCasting = GameObject.FindGameObjectWithTag("Player").GetComponent<SpellCasting>();
+		FindPlayer();
+		energyBar = GameObject.FindGameObjectWithTag("Energy Bar");
 		energyBarSize = energyBar.GetComponent<RectTransform>();
 		energyBarMax = energyBarSize.sizeDelta;
 	}
@@ -34,5 +34,10 @@ public class GameController : MonoBehaviour
 		float energyCurrent = spellCasting.energyCurrent;
 
 		energyBarSize.sizeDelta = new Vector2(energyBarMax.x * energyCurrent/100, energyBarMax.y); 
+	}
+
+	public void FindPlayer()
+	{
+		spellCasting = GameObject.FindGameObjectWithTag("Player").GetComponent<SpellCasting>();
 	}
 }

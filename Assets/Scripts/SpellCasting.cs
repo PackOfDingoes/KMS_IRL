@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class SpellCasting : MonoBehaviour
 {
-    public Queue<int> spellPrep = new Queue<int>(3);
+    private Queue<int> spellPrep = new Queue<int>(3);
     private int spellComboMax = 3;
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
@@ -115,7 +115,7 @@ public class SpellCasting : MonoBehaviour
 				Debug.Log("You cast spell 5");
 				break;
 			case "133":
-				Debug.Log("You cast spell 8");
+				Debug.Log("You cast spell 6");
 				break;
 			case "222":
 				Debug.Log("You lobbed a rock");
@@ -126,13 +126,13 @@ public class SpellCasting : MonoBehaviour
 				StartCoroutine(WindDash(dashTime));
 				break;
 			case "233":
-				Debug.Log("You cast spell 0");
+				Debug.Log("You cast spell 9");
 				break;
 			case "333":
 				Debug.Log("You cast spell 10");
 				break;
 			case "000":
-				Debug.Log("ain't not spell nigga");
+				Debug.Log("ain't no spell nigga");
 				break;
 			default:
 				Debug.Log("this isn't possible");
