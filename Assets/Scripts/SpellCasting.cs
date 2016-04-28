@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class SpellCasting : MonoBehaviour
 {
-    private Queue<int> spellPrep = new Queue<int>(3);
+	[HideInInspector]public Queue<int> spellPrep = new Queue<int>(3);
     private int spellComboMax = 3;
     private int[] preSpellToCast = new int[3];
     private string spellToCast = null;
@@ -27,8 +27,11 @@ public class SpellCasting : MonoBehaviour
 	public GameObject rock;
 	public int rockCost = 33;
 
+	private GameController gameController;
+
 	private void Awake()
 	{
+		gameController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>();
 		rb2D = GetComponent<Rigidbody2D>();
 		playerCont = GetComponent<PlatformerCharacter2D>();
 	}
@@ -70,6 +73,7 @@ public class SpellCasting : MonoBehaviour
 		{
 			CastSpell();
 			spellPrep.Clear();
+			gameController.ClearSpellArray();
 		}
 	}
 
@@ -91,10 +95,7 @@ public class SpellCasting : MonoBehaviour
 		{
 
 			spellToCast = "000";
-			for (int i = 0; i<preSpellToCast.Length; i++)
-			{
-				preSpellToCast[i] = 0;
-			}
+			ClearSpellArray();
 		}
 
 		switch (spellToCast)
@@ -151,6 +152,13 @@ public class SpellCasting : MonoBehaviour
 			energyCurrent = 100f;
 		}
 
+	}
+	void ClearSpellArray()
+	{
+		for (int i = 0; i<preSpellToCast.Length; i++)
+		{
+			preSpellToCast[i] = 0;
+		}
 	}
 
 	IEnumerator WindDash(float dashingTime)
