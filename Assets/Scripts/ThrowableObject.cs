@@ -11,6 +11,9 @@ public class ThrowableObject: MonoBehaviour
 	public float destroyAfter = 3f;
 	private float destroyTimer = 0f;
 
+	[HideInInspector]public bool hasCone = false;
+	[HideInInspector]public float[] coneWidth = new float[2]{-15, 15};
+
 	public bool destroyOnStill;
 	private float stillDestroyTimer = 0f;
 	public float stillDestroyAfter = 3f;
@@ -31,7 +34,16 @@ public class ThrowableObject: MonoBehaviour
 		if(thrownFromPlayer == true)
 		{
 			mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
-			rb2D.AddForce(mousePos.direction * throwForce);
+
+			if (hasCone == false)
+			{
+				rb2D.AddForce(mousePos.direction * throwForce);
+			}
+
+			if (hasCone == true)
+			{
+				rb2D.AddForce(new Vector3(mousePos.direction.x + Random.Range(coneWidth[0], coneWidth[1]), mousePos.direction.y + Random.Range(coneWidth[0], coneWidth[1]),0f) * throwForce);
+			}
 		}
 	}
 
