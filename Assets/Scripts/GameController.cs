@@ -2,6 +2,7 @@
 using System;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour 
 {
@@ -9,8 +10,9 @@ public class GameController : MonoBehaviour
 	[HideInInspector]public bool cameraFollowPlayer = false;
 
 	private SpellCasting spellCasting;
-
 	private Canvas canvasUI;
+	private GameObject paused;
+	public bool isPaused = false;
 
 	//energy bar
 	private GameObject energyBar;
@@ -27,6 +29,7 @@ public class GameController : MonoBehaviour
 		FindPlayer();
 		canvasUI = GameObject.Find("UI").GetComponent<Canvas>();
 		canvasUI.worldCamera = this.gameObject.GetComponent<Camera>();
+		paused = GameObject.Find("Paused");
 		energyBar = GameObject.FindGameObjectWithTag("Energy Bar");
 		energyBarSize = energyBar.GetComponent<RectTransform>();
 		energyBarMax = energyBarSize.sizeDelta;
@@ -39,11 +42,15 @@ public class GameController : MonoBehaviour
 
 	void Start () 
 	{
-	
+		ToggleMenu(false);
 	}
 
 	void Update () 	
 	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			ToggleMenu(!isPaused);
+		}
 		EnergyBar();
 		SpellPrep();
 	}
@@ -90,6 +97,44 @@ public class GameController : MonoBehaviour
 		for (int i = 0; i<comboType.Length; i++)
 		{
 			comboType[i] = 0;
+		}
+	}
+
+	public void Resume()
+	{
+		ToggleMenu(false);
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
+	}
+
+	public void Restart()
+	{
+		Scene scene = SceneManager.GetActiveScene();
+		SceneManager.LoadScene(scene.name);
+	}
+
+	public void MainMenu()
+	{
+		SceneManager.LoadScene("MainMenu");
+	}
+
+	private void ToggleMenu(bool showMenu) 
+	{
+		if (showMenu == true) 
+		{
+			Time.timeScale = 0.0f;
+			paused.SetActive(true);
+			isPaused = true;
+		} 
+
+		else 
+		{
+			Time.timeScale = 1.0f;
+			paused.SetActive(false);
+			isPaused = false;
 		}
 	}
 

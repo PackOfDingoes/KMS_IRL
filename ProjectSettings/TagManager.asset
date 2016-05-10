@@ -10,6 +10,8 @@ TagManager:
   - Instagib
   - DestroyableTerrain
   - Energy Bar
+  - Enemy
+  - Paused
   layers:
   - Default
   - TransparentFX

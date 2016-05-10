@@ -32,7 +32,7 @@ public class SpellCasting : MonoBehaviour
 	public float searingCostPerSec = 25;
 	public int searingDensity = 3;
 	[Tooltip("Currently for comical effect")]public GameObject searingFlameObject;
-	private bool searingCast = false;
+	[HideInInspector]public bool searingCast = false;
 
 	[Header("Rock settings")]
 	public GameObject rock;
@@ -55,9 +55,18 @@ public class SpellCasting : MonoBehaviour
 	void Update ()
     {
 		mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
-		EnergyRecovery();
-		SpellPrep();
-		SearingFlames();
+
+		if(gameController.isPaused == false)
+		{
+			EnergyRecovery();
+			SpellPrep();
+			SearingFlames();
+		}
+
+		if(Input.GetMouseButtonUp(0))
+		{
+			searingCast = false;
+		}
     }
 
 	void SpellPrep()
@@ -209,11 +218,7 @@ public class SpellCasting : MonoBehaviour
 			{
 				searingCast = false;
 			}
-
-			if(Input.GetMouseButtonUp(0))
-			{
-				searingCast = false;
-			}
+				
 		}
 	}
 
