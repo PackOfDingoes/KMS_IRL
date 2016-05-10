@@ -30,6 +30,7 @@ public class SpellCasting : MonoBehaviour
 	[Header("Searing Flames settings")]
 	[Tooltip("Must be whole number")] public int searingInitialCost = 25;
 	public float searingCostPerSec = 25;
+	public int searingDensity = 3;
 	[Tooltip("Currently for comical effect")]public GameObject searingFlameObject;
 	private bool searingCast = false;
 

@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
 	//spell combo shit
 	public Color[] comboColours = new Color[4];
 	private int[] comboType = new int[3]{0,0,0};
-	private int[] comboType2 = new int[3]{0,0,0};
 	private GameObject[] comboPos = new GameObject[3];
 
 	void Awake ()

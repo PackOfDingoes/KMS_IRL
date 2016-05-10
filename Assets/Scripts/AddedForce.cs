@@ -29,6 +29,6 @@ public class AddedForce : MonoBehaviour
 
     void BROOMBROOM(float forceAmount)
     {
-        rb2d.velocity = transform.up * forceAmount;
+		rb2d.velocity = transform.right * -forceAmount;
     }
 }

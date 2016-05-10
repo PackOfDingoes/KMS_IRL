@@ -238,19 +238,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af44e010d3a4b7c40a41f52cf338eaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyCurrent: 100
-  energyRecovery: 10
   frontSpawn: {fileID: 407094}
   backSpawn: {fileID: 466722}
   dashTime: 0.5
   windDashStrength: 1500
   isWindDashing: 0
-  windDashCost: 50
-  searingInitialCost: 25
-  searingCostPerSec: 25
-  searingFlameObject: {fileID: 149156, guid: 79688ea2d45aad449849a10356970f15, type: 2}
   rock: {fileID: 136450, guid: 90f432ded2297f3479a60c1d7b810862, type: 2}
-  rockCost: 33
 --- !u!212 &21282352
 SpriteRenderer:
   m_ObjectHideFlags: 1
