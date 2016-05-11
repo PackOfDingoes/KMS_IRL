@@ -118,10 +118,11 @@ MonoBehaviour:
   stillDestroyAfter: 3
   destroyOnBounches: 0
   bounceMax: 3
-  destroyOnTaggedTouch: 0
-  destroyTags: []
+  destroyOnTaggedTouch: 1
+  destroyTags:
+  - Enemy
   destroySelf: 0
-  destroyOther: 0
+  destroyOther: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

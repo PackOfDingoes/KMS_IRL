@@ -10,9 +10,11 @@ public class GameController : MonoBehaviour
 	[HideInInspector]public bool cameraFollowPlayer = false;
 
 	private SpellCasting spellCasting;
+	private PlatformerCharacter2D playerCont;
 	private Canvas canvasUI;
 	private GameObject paused;
 	public bool isPaused = false;
+	public bool playerIsDead = false;
 
 	//energy bar
 	private GameObject energyBar;
@@ -47,9 +49,12 @@ public class GameController : MonoBehaviour
 
 	void Update () 	
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (playerIsDead == false)
 		{
-			ToggleMenu(!isPaused);
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				ToggleMenu(!isPaused);
+			}
 		}
 		EnergyBar();
 		SpellPrep();
@@ -99,6 +104,19 @@ public class GameController : MonoBehaviour
 			comboType[i] = 0;
 		}
 	}
+	public void FuckThis(float seconds)
+	{
+		StartCoroutine(KillPlayer(seconds));
+	}
+	IEnumerator KillPlayer(float DeathCamTime)
+	{
+		playerIsDead = true;
+		playerCont.playerIsDead = true;
+		yield return new WaitForSeconds(DeathCamTime);
+		ToggleMenu(true);
+		GameObject.Find("PausedText").GetComponent<Text>().text = "You Died";
+		GameObject.Find("Resume").SetActive(false);
+	}
 
 	public void Resume()
 	{
@@ -141,5 +159,6 @@ public class GameController : MonoBehaviour
 	public void FindPlayer()
 	{
 		spellCasting = GameObject.FindGameObjectWithTag("Player").GetComponent<SpellCasting>();
+		playerCont = GameObject.FindGameObjectWithTag("Player").GetComponent<PlatformerCharacter2D>();
 	}
 }

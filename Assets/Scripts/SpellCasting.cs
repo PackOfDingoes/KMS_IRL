@@ -56,7 +56,7 @@ public class SpellCasting : MonoBehaviour
     {
 		mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		if(gameController.isPaused == false)
+		if(gameController.isPaused == false && gameController.playerIsDead == false )
 		{
 			EnergyRecovery();
 			SpellPrep();

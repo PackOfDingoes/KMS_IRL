@@ -89,4 +89,14 @@ public class BerserkerAI : MonoBehaviour
         }
     }
 
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Player")
+		{
+			GameController gameController;
+			gameController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>();
+			gameController.FuckThis(1f);
+		}
+	}
+
 }

@@ -31,4 +31,16 @@ public class AddedForce : MonoBehaviour
     {
 		rb2d.velocity = transform.right * -forceAmount;
     }
+
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Player")
+		{
+			GameController gameController;
+			gameController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>();
+			gameController.FuckThis(1f);
+
+			Destroy(this.GetComponent<Collider2D>());
+		}
+	}
 }

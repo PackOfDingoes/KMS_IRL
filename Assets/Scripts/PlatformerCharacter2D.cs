@@ -20,6 +20,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private SpellCasting windDashing;
 	[HideInInspector] public bool onLadder = false;
     public float playerClimbSpeed = 20;
+	[HideInInspector]public bool playerIsDead = false;
 
     private void Awake()
     {
@@ -56,51 +57,44 @@ public class PlatformerCharacter2D : MonoBehaviour
 
     public void Move(float move, bool jump, float climb = 0)
     {
-        if (m_Grounded && windDashing.isWindDashing == false || m_AirControl && windDashing.isWindDashing == false)
-        {
-          
-            // The Speed animator parameter is set to the absolute value of the horizontal input.
-			if (onLadder == false)
-			{
-            	m_Anim.SetFloat("Speed", Mathf.Abs(move));
-			}
-			if(onLadder == true)
-			{
-				m_Anim.SetFloat("Speed",0f);
-			}
-
+		if (m_Grounded && windDashing.isWindDashing == false || m_AirControl && windDashing.isWindDashing == false)
+		{
             // Move the character
             if (onLadder == false)
             {
+				m_Anim.SetFloat("Speed", Mathf.Abs(move));
                 m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
+				m_Rigidbody2D.gravityScale = 3;
             }
             if (onLadder == true)
             {
+				m_Anim.SetFloat("Speed",0f);
                 m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed/2, climb* m_ClimbSpeed);
+				m_Rigidbody2D.gravityScale = 0;
             }
 
-            if (onLadder == true)
-            {
-                m_Rigidbody2D.gravityScale = 0;
-            }
-
-            if(onLadder == false)
-            {
-                m_Rigidbody2D.gravityScale = 3;
-            }
-
+			if (playerIsDead == true)
+			{
+				m_Anim.SetFloat("Speed",0f);
+				m_Rigidbody2D.velocity = new Vector2(0f, 100f);
+				m_Rigidbody2D.velocity = transform.up * -20f;
+				m_Rigidbody2D.gravityScale = 3;
+			}
             // If the input is moving the player right and the player is facing left...
-            if (move > 0 && !m_FacingRight)
-            {
-                // ... flip the player.
-                Flip();
-            }
-                // Otherwise if the input is moving the player left and the player is facing right...
-            else if (move < 0 && m_FacingRight)
-            {
-                // ... flip the player.
-                Flip();
-            }
+			if(playerIsDead == false)
+			{
+	            if (move > 0 && !m_FacingRight)
+	            {
+	                // ... flip the player.
+	                Flip();
+	            }
+	                // Otherwise if the input is moving the player left and the player is facing right...
+	            else if (move < 0 && m_FacingRight)
+	            {
+	                // ... flip the player.
+	                Flip();
+	            }
+			}
         }
         // If the player should jump...
         if (m_Grounded && jump && m_Anim.GetBool("Ground") && onLadder == false)
