@@ -12,6 +12,7 @@ TagManager:
   - Energy Bar
   - Enemy
   - Paused
+  - LevelComplete
   layers:
   - Default
   - TransparentFX

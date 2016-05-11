@@ -117,6 +117,12 @@ public class GameController : MonoBehaviour
 		GameObject.Find("PausedText").GetComponent<Text>().text = "You Died";
 		GameObject.Find("Resume").SetActive(false);
 	}
+	public void FinishLevel()
+	{
+		ToggleMenu(true);
+		GameObject.Find("PausedText").GetComponent<Text>().text = "Level Complete!";
+		GameObject.Find("Resume").SetActive(false);
+	}
 
 	public void Resume()
 	{

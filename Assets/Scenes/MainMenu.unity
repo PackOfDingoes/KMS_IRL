@@ -97,7 +97,7 @@ GameObject:
   - 114: {fileID: 4089636}
   - 114: {fileID: 4089635}
   m_Layer: 9
-  m_Name: Practise
+  m_Name: Practice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level1: Level1
   level2: Level2
-  practiseLevel: Practise
+  practiseLevel: Practice
 --- !u!1 &845410117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,7 +1206,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Practise
+  m_Text: Practice
 --- !u!222 &1445931925
 CanvasRenderer:
   m_ObjectHideFlags: 0
