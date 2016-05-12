@@ -125,4 +125,12 @@ public class PlatformerCharacter2D : MonoBehaviour
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>().FinishLevel();
 		}
 	}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Instagib")
+        {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>().FuckThis(1);
+        }
+    }
 }

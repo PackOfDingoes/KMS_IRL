@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Scenes/Practice.unity
+    path: Assets/Scenes/Rumble.unity
+  - enabled: 1
+    path: Assets/Scenes/Rumble2.unity
+  - enabled: 1
+    path: Assets/Scenes/RumblePractice.unity

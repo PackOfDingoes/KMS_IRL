@@ -39,8 +39,11 @@ public class AddedForce : MonoBehaviour
 			GameController gameController;
 			gameController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameController>();
 			gameController.FuckThis(1f);
-
-			Destroy(this.GetComponent<Collider2D>());
 		}
-	}
+        if (other.gameObject.tag != "Enemy")
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
 }

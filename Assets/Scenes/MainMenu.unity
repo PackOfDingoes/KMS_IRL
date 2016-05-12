@@ -812,9 +812,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e788f4a84358e9841a6aebcca5ebf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1: Level1
-  level2: Level2
-  practiseLevel: Practice
+  level1: Rumble
+  level2: Rumble2
+  practiseLevel: RumblePractice
 --- !u!1 &845410117
 GameObject:
   m_ObjectHideFlags: 0

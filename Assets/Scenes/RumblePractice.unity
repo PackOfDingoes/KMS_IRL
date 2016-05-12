@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -66,7 +66,8 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000001, guid: 74fe02a6016fc74489a83e2ccfc53d76,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -851,6 +852,14 @@ Prefab:
       propertyPath: m_Name
       value: Ladder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6106260, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
+      propertyPath: m_Size.x
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106260, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
+      propertyPath: m_Offset.x
+      value: 0.45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
   m_IsPrefabParent: 0
@@ -1301,7 +1310,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 497014, guid: b0e4301f0ae442345977238a1c48b14c, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11479150, guid: b0e4301f0ae442345977238a1c48b14c, type: 2}
       propertyPath: m_JumpForce
@@ -2821,7 +2830,9 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 6.08
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6106260, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
+    - {fileID: 11427502, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7885ef123e49fb749ade6bc557f8205c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2020769378
