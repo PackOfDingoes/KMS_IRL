@@ -37,7 +37,7 @@ public class SniperAI : MonoBehaviour
     {
         //casts ray from sniperscope to player pos (-sniperScope.transform.position + playerPos.position) = player direction
         RaycastHit2D playerInSights = Physics2D.Raycast(sniperScope.transform.position, -sniperScope.transform.position + playerPos.position, sniperRange);
-		if (playerInSights.collider != null)
+        if (playerInSights.collider != null)
         {
             if (playerInSights.collider.tag == "Player")
             {
@@ -60,10 +60,8 @@ public class SniperAI : MonoBehaviour
 		{
 			Instantiate(bullet, sniperScope.transform.position,new Quaternion(0,0,rotation.z,rotation.w));
 			reloading = true;
-
 			yield return new WaitForSeconds(fireRate);
-
-			reloading = false;
+            reloading = false;
 		}
 	}
 }

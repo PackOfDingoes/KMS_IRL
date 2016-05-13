@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 	private Canvas canvasUI;
 	private GameObject paused;
 	public bool isPaused = false;
+    private GameObject resumeButton;
 	public bool playerIsDead = false;
 
 	//energy bar
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
 		canvasUI = GameObject.Find("UI").GetComponent<Canvas>();
 		canvasUI.worldCamera = this.gameObject.GetComponent<Camera>();
 		paused = GameObject.Find("Paused");
+        resumeButton = GameObject.Find("Resume");
 		energyBar = GameObject.FindGameObjectWithTag("Energy Bar");
 		energyBarSize = energyBar.GetComponent<RectTransform>();
 		energyBarMax = energyBarSize.sizeDelta;
@@ -115,13 +117,13 @@ public class GameController : MonoBehaviour
 		yield return new WaitForSeconds(DeathCamTime);
 		ToggleMenu(true);
 		GameObject.Find("PausedText").GetComponent<Text>().text = "You Died";
-		GameObject.Find("Resume").SetActive(false);
-	}
-	public void FinishLevel()
+        resumeButton.SetActive(false);
+    }
+    public void FinishLevel()
 	{
 		ToggleMenu(true);
 		GameObject.Find("PausedText").GetComponent<Text>().text = "Level Complete!";
-		GameObject.Find("Resume").SetActive(false);
+		resumeButton.SetActive(false);
 	}
 
 	public void Resume()
